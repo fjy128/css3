@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>css3特效</title>
+    <style>
+     /* 第一中情况 普通浮动布局 */
+     /* 这种布局主要是控制元素浮动来实现的，要注意的一点就是中间元素要创建BFC，否则一旦高度变化就会无法正常工作。*/
+     /*优点：浮动对旧浏览器兼容性好；
+     缺点：主体内容需要放到最后加载，当页面元素较多时候可能会影响体验 */
+     .container>div{
+           height: 200px;
+       }
+       .left {
+           float: left;
+           width: 300px;
+           background: red;
+       }
+       .right {
+           float: right;
+           width: 300px;
+           background: blue;
+       }
+       .center {
+       	  overflow: hidden;
+          background: yellow;
+       }
+       /* 第二种情况 圣杯布局 */
+       /* 优点：可以实现中间部分优先加载；
+          缺点：处理复杂，而且当中间元素小于两侧元素时候会出现变形，响应效果相对差一点。 */
+       .SB>div{height:200px;}
+       .SB{padding: 0 300px;}
+       .SB_center{
+         width:100%;
+         float:left;
+         background:#0f0;  
+       }
+       .SB_left{
+         width:300px;
+         float:left;
+         background:#000;
+         margin-left:-100%;
+         position: relative;
+         left: -300px;
+       }
+       .SB_right{
+        width:300px;
+         float:left;
+         background:#333;
+         margin-left:-300px;
+         position: relative;
+         right: -300px;
+       }
+       /* 双飞翼 */
+       /* 圣杯布局和双飞翼布局都是在浮动布局时代的比较经典的布局方式，对旧的浏览器有很好的兼容性。 */
+       .SF div {height: 200px;}
+       .center-container {
+           float: left;
+           width: 100%;
+           height: 100px;
+           background: yellow;
+       }
+       .center {margin: 0 300px;}
+       .SF_left {
+           background: red;
+           float: left;
+           width: 300px;
+           margin-left: -100%;
+       }
+       .SF_right {
+           background: blue;
+           float: left;
+           width: 300px;
+           margin-left: -300px;
+       }
+       /* flex布局 */
+       /* 把外层容器显示属性设置成flex，里面只要自适应部分flex设置为1，就可以实现自适应效果了。 */
+       /* 使用flex布局的代码特别简洁，也是实现自适应布局的最佳方案，唯一的问题就是旧浏览器不兼容这一布局方式。 */
+       /* 现在需要适配旧浏览器的场景越来越少了，尤其是移动开发，flex可以完全放心使用。 */
+       .FX {
+           display: flex;
+       }
+       .FX_container>div {
+           height: 200px;
+       }
+       .FX_left {
+           width: 300px;
+           background: red;
+       }
+       .FX_center {
+           flex: 1;
+           background: yellow;
+       }
+       .FX_right {
+           width: 300px;
+           background: blue;
+       }
+/* table布局 */
+/* 把外层容器设置成table,里面设置为table-cell，就可以很容易地实现布局需求。
+这种布局方式兼容性还特别好，因为表格是兼容旧浏览器的，虽然遭受很多诟病，但是真的可以解决问题。
+当然这种布局有缺点，缺点就是不灵活，边框设置、高度设置等等都有很大受限。 */
+      .table {
+           width: 100%;
+           display: table;
+           height: 200px;
+       }
+       .table>div {
+           display: table-cell;
+       }
+       .table_left {
+           width: 300px;
+           background: rgb(146, 124, 124);
+       }
+       .table_center {
+           background: rgb(41, 39, 155);
+       }
+       .table_right {
+           width: 300px;
+           background: greenyellow;
+       }
+       /* 绝对定位布局 */
+       /* 绝对定位布局，很容易，效率也很高，不过实际开发中很少使用，原因也很简单，绝对定位的元素是脱离文档流的，可维护性会受限 */
+       .JD>div {
+           position: absolute;
+           height: 200px;
+       }
+       .JD_left {
+           left: 0;
+           width: 300px;
+           background: red;
+
+       }
+       .JD_center {
+           left: 300px;
+           right: 300px;
+           background: yellow;
+       }
+       .JD_right {
+           right: 0;
+           width: 300px;
+           background: blue;
+       }
+       /* 网格布局 */
+       /* 网格布局，这个布局是新的css标准下的特性,在响应式布局大行其道的移动互联网时代，
+       bootstrap之类的是对栅格化布局框架非常流行，而网格布局，就是对栅格布局的标准化实现， */
+       .WG {
+           display: grid;
+           width: 100%;
+           grid-template-rows: 200px;
+           grid-template-columns: 300px auto 300px;
+       }
+       .WG_left {
+           background: red;
+       }
+       .WG_center {
+           background: yellow;
+       }
+       .WG_right {
+           background: blue;
+       }
+    </style>
+   <!-- <link rel="stylesheet" type="text/css" href="static/css/reset.css"/> -->
+  </head>
+  <body>
+    <div class="container">
+      <div class="left"></div>
+      <div class="right"></div>
+      <div class="center">
+          <h1>浮动布局</h1>
+      </div>
+  </div>
+  <div class="SB">
+    <div class="SB_center">
+        <h1>圣杯布局</h1>
+        <h3 style="text-align:right">fjy</h3>
+    </div>
+    <div class="SB_left"></div>
+    <div class="SB_right"></div>
+</div>
+
+<div class="SF">
+  <div class="center-container">
+      <div class="center">
+          <h1>双飞翼布局</h1>
+      </div>
+  </div>
+  <div class="SF_left"></div>
+  <div class="SF_right"></div>
+</div>
+
+<div class="FX">
+  <div class="FX_left"></div>
+  <div class="FX_center">
+      <h1>flexbox</h1>
+  </div>
+  <div class="FX_right"></div>
+</div>
+
+<div class="table">
+  <div class="table_left"></div>
+  <div class="table_center">
+      <h1>表格布局</h1>
+  </div>
+  <div class="table_right"></div>
+</div>
+
+<div class="JD">
+  <div class="JD_left"></div>
+  <div class="JD_center">
+      <h1>绝对定位布局</h1>
+  </div>
+  <div class="JD_right"></div>
+</div>
+
+<div class="WG">
+  <div class="WG_left"></div>
+  <div class="WG_center">
+      <h1>网格布局</h1>
+  </div>
+  <div class="WG_right"></div>
+</div>
+  </body>
+  
+</html>
